@@ -173,7 +173,7 @@ class imdb(object):
                                      gt_boxes.astype(np.float))
 
             _gt_overlaps = np.zeros((gt_boxes.shape[0]))
-            for j in xrange(gt_boxes.shape[0]):
+            for j in range(gt_boxes.shape[0]):
                 # find which proposal box maximally covers each gt box
                 argmax_overlaps = overlaps.argmax(axis=0)
                 # and get the iou amount of coverage for each gt box
@@ -210,7 +210,7 @@ class imdb(object):
         assert len(box_list) == self.num_images, \
                 'Number of boxes must match number of ground-truth images'
         roidb = []
-        for i in xrange(self.num_images):
+        for i in range(self.num_images):
             boxes = box_list[i]
             num_boxes = boxes.shape[0]
             overlaps = np.zeros((num_boxes, self.num_classes), dtype=np.float32)
@@ -238,7 +238,7 @@ class imdb(object):
     @staticmethod
     def merge_roidbs(a, b):
         assert len(a) == len(b)
-        for i in xrange(len(a)):
+        for i in range(len(a)):
             a[i]['boxes'] = np.vstack((a[i]['boxes'], b[i]['boxes']))
             a[i]['gt_classes'] = np.hstack((a[i]['gt_classes'],
                                             b[i]['gt_classes']))

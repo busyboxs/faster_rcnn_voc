@@ -18,6 +18,7 @@ import argparse
 import pprint
 import time, os, sys
 
+
 def parse_args():
     """
     Parse input arguments

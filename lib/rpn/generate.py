@@ -11,6 +11,7 @@ from utils.timer import Timer
 import numpy as np
 import cv2
 
+
 def _vis_proposals(im, dets, thresh=0.5):
     """Draw detected bounding boxes."""
     inds = np.where(dets[:, -1] >= thresh)[0]
@@ -43,6 +44,7 @@ def _vis_proposals(im, dets, thresh=0.5):
     plt.axis('off')
     plt.tight_layout()
     plt.draw()
+
 
 def _get_image_blob(im):
     """Converts an image into a network input.
@@ -81,6 +83,7 @@ def _get_image_blob(im):
 
     return blob, im_info
 
+
 def im_proposals(net, im):
     """Generate RPN proposals on a single image."""
     blobs = {}
@@ -96,18 +99,19 @@ def im_proposals(net, im):
     scores = blobs_out['scores'].copy()
     return boxes, scores
 
+
 def imdb_proposals(net, imdb):
     """Generate RPN proposals on all images in an imdb."""
 
     _t = Timer()
-    imdb_boxes = [[] for _ in xrange(imdb.num_images)]
-    for i in xrange(imdb.num_images):
+    imdb_boxes = [[] for _ in range(imdb.num_images)]
+    for i in range(imdb.num_images):
         im = cv2.imread(imdb.image_path_at(i))
         _t.tic()
         imdb_boxes[i], scores = im_proposals(net, im)
         _t.toc()
-        print 'im_proposals: {:d}/{:d} {:.3f}s' \
-              .format(i + 1, imdb.num_images, _t.average_time)
+        print('im_proposals: {:d}/{:d} {:.3f}s' \
+              .format(i + 1, imdb.num_images, _t.average_time))
         if 0:
             dets = np.hstack((imdb_boxes[i], scores))
             # from IPython import embed; embed()

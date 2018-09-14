@@ -17,6 +17,7 @@ import numpy as np
 import yaml
 from multiprocessing import Process, Queue
 
+
 class RoIDataLayer(caffe.Layer):
     """Fast R-CNN data layer used for training."""
 
@@ -74,7 +75,7 @@ class RoIDataLayer(caffe.Layer):
             self._prefetch_process.start()
             # Terminate the child process when the parent exists
             def cleanup():
-                print 'Terminating BlobFetcher'
+                print('Terminating BlobFetcher')
                 self._prefetch_process.terminate()
                 self._prefetch_process.join()
             import atexit
@@ -136,7 +137,7 @@ class RoIDataLayer(caffe.Layer):
                 self._name_to_top_map['bbox_outside_weights'] = idx
                 idx += 1
 
-        print 'RoiDataLayer: name_to_top:', self._name_to_top_map
+        print('RoiDataLayer: name_to_top:', self._name_to_top_map)
         assert len(top) == len(self._name_to_top_map)
 
     def forward(self, bottom, top):
@@ -157,6 +158,7 @@ class RoIDataLayer(caffe.Layer):
     def reshape(self, bottom, top):
         """Reshaping happens during the call to forward."""
         pass
+
 
 class BlobFetcher(Process):
     """Experimental class for prefetching blobs in a separate process."""
@@ -188,7 +190,7 @@ class BlobFetcher(Process):
         return db_inds
 
     def run(self):
-        print 'BlobFetcher started'
+        print('BlobFetcher started')
         while True:
             db_inds = self._get_next_minibatch_inds()
             minibatch_db = [self._roidb[i] for i in db_inds]

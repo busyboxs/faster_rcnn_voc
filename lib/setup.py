@@ -13,8 +13,9 @@ from Cython.Distutils import build_ext
 import subprocess
 import numpy as np
 
+
 def find_in_path(name, path):
-    "Find a file in a search path"
+    """Find a file in a search path"""
     # Adapted fom
     # http://code.activestate.com/recipes/52224-find-a-file-given-a-search-path/
     for dir in path.split(os.pathsep):
@@ -44,7 +45,7 @@ def locate_cuda():
         nvcc = find_in_path('nvcc', os.environ['PATH'] + os.pathsep + default_path)
         if nvcc is None:
             raise EnvironmentError('The nvcc binary could not be '
-                'located in your $PATH. Either add it to your path, or set $CUDAHOME')
+                                   'located in your $PATH. Either add it to your path, or set $CUDAHOME')
         home = os.path.dirname(os.path.dirname(nvcc))
 
     cudaconfig = {'home':home, 'nvcc':nvcc,
@@ -63,6 +64,7 @@ try:
     numpy_include = np.get_include()
 except AttributeError:
     numpy_include = np.get_numpy_include()
+
 
 def customize_compiler_for_nvcc(self):
     """inject deep into distutils to customize how the dispatch

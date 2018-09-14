@@ -20,6 +20,7 @@ import argparse
 import pprint
 import time, os, sys
 
+
 def parse_args():
     """
     Parse input arguments
@@ -88,4 +89,4 @@ if __name__ == '__main__':
     rpn_file = os.path.join(output_dir, net.name + '_rpn_proposals.pkl')
     with open(rpn_file, 'wb') as f:
         cPickle.dump(imdb_boxes, f, cPickle.HIGHEST_PROTOCOL)
-    print 'Wrote RPN proposals to {}'.format(rpn_file)
+    print('Wrote RPN proposals to {}'.format(rpn_file))

@@ -154,11 +154,11 @@ __C.TEST.HAS_RPN = False
 # Test using these proposals
 __C.TEST.PROPOSAL_METHOD = 'selective_search'
 
-## NMS threshold used on RPN proposals
+# NMS threshold used on RPN proposals
 __C.TEST.RPN_NMS_THRESH = 0.7
-## Number of top scoring boxes to keep before apply NMS to RPN proposals
+# Number of top scoring boxes to keep before apply NMS to RPN proposals
 __C.TEST.RPN_PRE_NMS_TOP_N = 6000
-## Number of top scoring boxes to keep after applying NMS to RPN proposals
+# Number of top scoring boxes to keep after applying NMS to RPN proposals
 __C.TEST.RPN_POST_NMS_TOP_N = 300
 # Proposal height and width both need to be greater than RPN_MIN_SIZE (at orig image scale)
 __C.TEST.RPN_MIN_SIZE = 16
@@ -222,6 +222,7 @@ def get_output_dir(imdb, net=None):
         os.makedirs(outdir)
     return outdir
 
+
 def _merge_a_into_b(a, b):
     """Merge config dictionary a into config dictionary b, clobbering the
     options in b whenever they are also specified in a.
@@ -254,6 +255,7 @@ def _merge_a_into_b(a, b):
         else:
             b[k] = v
 
+
 def cfg_from_file(filename):
     """Load a config file and merge it into the default options."""
     import yaml
@@ -261,6 +263,7 @@ def cfg_from_file(filename):
         yaml_cfg = edict(yaml.load(f))
 
     _merge_a_into_b(yaml_cfg, __C)
+
 
 def cfg_from_list(cfg_list):
     """Set config keys via list (e.g., from command line)."""

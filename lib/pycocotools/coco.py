@@ -58,6 +58,7 @@ import itertools
 import mask
 import os
 
+
 class COCO:
     def __init__(self, annotation_file=None):
         """
@@ -74,16 +75,16 @@ class COCO:
         self.imgs = {}
         self.cats = {}
         if not annotation_file == None:
-            print 'loading annotations into memory...'
+            print('loading annotations into memory...')
             tic = time.time()
             dataset = json.load(open(annotation_file, 'r'))
-            print 'Done (t=%0.2fs)'%(time.time()- tic)
+            print('Done (t=%0.2fs)'%(time.time()- tic))
             self.dataset = dataset
             self.createIndex()
 
     def createIndex(self):
         # create index
-        print 'creating index...'
+        print('creating index...')
         anns = {}
         imgToAnns = {}
         catToImgs = {}

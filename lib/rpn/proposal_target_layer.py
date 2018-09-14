@@ -15,6 +15,7 @@ from utils.cython_bbox import bbox_overlaps
 
 DEBUG = False
 
+
 class ProposalTargetLayer(caffe.Layer):
     """
     Assign object detection proposals to ground-truth targets. Produces proposal
@@ -53,7 +54,7 @@ class ProposalTargetLayer(caffe.Layer):
 
         # Sanity check: single batch only
         assert np.all(all_rois[:, 0] == 0), \
-                'Only single item batches are supported'
+            'Only single item batches are supported'
 
         num_images = 1
         rois_per_image = cfg.TRAIN.BATCH_SIZE / num_images
@@ -66,14 +67,14 @@ class ProposalTargetLayer(caffe.Layer):
             rois_per_image, self._num_classes)
 
         if DEBUG:
-            print 'num fg: {}'.format((labels > 0).sum())
-            print 'num bg: {}'.format((labels == 0).sum())
+            print('num fg: {}'.format((labels > 0).sum()))
+            print('num bg: {}'.format((labels == 0).sum()))
             self._count += 1
             self._fg_num += (labels > 0).sum()
             self._bg_num += (labels == 0).sum()
-            print 'num fg avg: {}'.format(self._fg_num / self._count)
-            print 'num bg avg: {}'.format(self._bg_num / self._count)
-            print 'ratio: {:.3f}'.format(float(self._fg_num) / float(self._bg_num))
+            print('num fg avg: {}'.format(self._fg_num / self._count))
+            print('num bg avg: {}'.format(self._bg_num / self._count))
+            print('ratio: {:.3f}'.format(float(self._fg_num) / float(self._bg_num)))
 
         # sampled rois
         top[0].reshape(*rois.shape)
@@ -143,6 +144,7 @@ def _compute_targets(ex_rois, gt_rois, labels):
                 / np.array(cfg.TRAIN.BBOX_NORMALIZE_STDS))
     return np.hstack(
             (labels[:, np.newaxis], targets)).astype(np.float32, copy=False)
+
 
 def _sample_rois(all_rois, gt_boxes, fg_rois_per_image, rois_per_image, num_classes):
     """Generate a random sample of RoIs comprising foreground and background
